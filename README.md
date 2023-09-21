@@ -1,2 +1,24 @@
-# Full-Stack-Capstone-Backend
-Explore the backend of Doctor Reservation App! This repository, powered by Rails, manages user authentication, reservation logic, and API endpoints.
+# README
+
+This README would normally document whatever steps are necessary to get the
+application up and running.
+
+Things you may want to cover:
+
+* Ruby version
+
+* System dependencies
+
+* Configuration
+
+* Database creation
+
+* Database initialization
+
+* How to run the test suite
+
+* Services (job queues, cache servers, search engines, etc.)
+
+* Deployment instructions
+
+* ...
