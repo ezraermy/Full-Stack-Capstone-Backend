@@ -5,18 +5,7 @@ class Api::ReservationsController < ApplicationController
       # This action handles the HTTP GET request to retrieve a list of reservations.
       def index
         @reservations = Reservation.includes(:car).all
-        reservations_json = @reservations.map do |reservation|
-          car = Car.find(reservation.car_id)
-          {
-            id: reservation.id,
-            reservation_date: reservation.reservation_date,
-            due_date: reservation.due_date,
-            service_fee: reservation.service_fee,
-            car_name: car.name,
-            car_photo: car.photo
-          }
-        end
-        render json: reservations_json
+        render json: { reservations: @reservations }, status: :ok
       end
 
       # This action handles the HTTP POST request to create a new reservation
