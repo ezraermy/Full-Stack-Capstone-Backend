@@ -11,14 +11,14 @@ class Reservation < ApplicationRecord
   private
 
   def reservation_date_cannot_be_in_the_past
-    if reservation_date.present? && reservation_date < Date.today
-      errors.add(:reservation_date, "can't be in the past")
-    end
+    return unless reservation_date.present? && reservation_date < Date.today
+
+    errors.add(:reservation_date, "can't be in the past")
   end
 
   def due_date_must_be_after_reservation_date
-    if reservation_date.present? && due_date.present? && due_date <= reservation_date
-      errors.add(:due_date, "must be after the reservation date")
-    end
+    return unless reservation_date.present? && due_date.present? && due_date <= reservation_date
+
+    errors.add(:due_date, 'must be after the reservation date')
   end
 end
