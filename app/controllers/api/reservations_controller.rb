@@ -32,13 +32,13 @@ class Api::ReservationsController < ApplicationController
   
       # This action handles the HTTP GET request to retrieve details of a specific reservation
       def show
-        render json: reservation_details_json(@reservation)
+        render json: Reservation.new(@reservation).as_json
       end
   
       # This action handles the HTTP PUT request to update an existing reservation
       def update
         if @reservation.update(reservation_params)
-          render json: reservation_details_json(@reservation), status: :ok
+          render json: Reservation.new(@reservation).as_json , status: :ok
         else
           render json: { errors: @reservation.errors.full_messages }, status: :unprocessable_entity
         end
