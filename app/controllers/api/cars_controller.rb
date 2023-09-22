@@ -13,6 +13,14 @@ class CarsController < ApplicationController
     render json: @item
   end
  
+  def destroy_car
+    @item = Car.find_by(id: params[:id])
+    @item.destroy
+    head :no_content
+  end
+
+
+
   private
 
   def car_params
