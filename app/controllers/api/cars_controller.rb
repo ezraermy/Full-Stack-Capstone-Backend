@@ -12,7 +12,7 @@ class CarsController < ApplicationController
     @item = Car.find_by(id: params[:id])
     render json: @item
   end
- 
+
   def destroy_car
     @item = Car.find_by(id: params[:id])
     @item.destroy
