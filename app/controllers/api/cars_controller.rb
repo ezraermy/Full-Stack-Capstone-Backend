@@ -19,6 +19,15 @@ class CarsController < ApplicationController
     head :no_content
   end
 
+  def create
+    @car = Car.new(car_params)
+
+    if @car.save
+      render json: @car
+    else
+      render json: @car.errors.full_messages
+    end
+  end
 
 
   private
