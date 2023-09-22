@@ -1,22 +1,38 @@
-class CarsController < ApplicationController
-  skip_before_action :verify_authenticity_token, only: %i[destroy_car create]
+class Api::CarsController < ApplicationController
+  # skip_before_action :verify_authenticity_token, only: %i[destroy_car create]
 
-  def index; end
 
-  def list_cars
-    @cars_name = Car.pluck(:id, :name, :car_type, :image)
-    render json: @cars_name
+  def index
+    @cars = Car.all
+
+    @cars_json = @cars.map do |car|
+      {
+        id: car.id,
+        name: car.name,
+        description: car.description,
+        image: car.image,
+        location: car.location,
+        daily_rate: car.daily_rate,
+        car_type: car.car_type
+      }
+    end
+
+    render json: @cars_json
   end
 
-  def list_cars_details
+  def show
     @item = Car.find_by(id: params[:id])
     render json: @item
   end
 
-  def destroy_car
+  def destroy
     @item = Car.find_by(id: params[:id])
-    @item.destroy
-    head :no_content
+    if @item.destroy
+      # head :no_content
+      render json: { message: 'Car was deleted successfully' }
+    else
+      render json: { errors: 'Car could not be deleted' }
+    end
   end
 
   def create
