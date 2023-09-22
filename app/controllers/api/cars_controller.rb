@@ -1,7 +1,6 @@
 class Api::CarsController < ApplicationController
   # skip_before_action :verify_authenticity_token, only: %i[destroy_car create]
 
-
   def index
     @cars = Car.all
 
