@@ -6,5 +6,6 @@ Rails.application.routes.draw do
   namespace :api do
     resources :reservations
     resources :users
+    resources :cars
   end
 end
