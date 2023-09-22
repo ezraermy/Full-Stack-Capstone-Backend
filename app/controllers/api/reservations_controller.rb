@@ -46,7 +46,6 @@ class Api::ReservationsController < ApplicationController
   # DELETE /api/reservations/:id
   def destroy
     if @reservation.destroy
-      head :no_content
       render json: { message: 'Reservation was deleted successfully' }
     else
       render json: { errors: 'Reservation could not be deleted' }
