@@ -1,0 +1,89 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/api/users":
+    get:
+      summary: user information
+      parameters: []
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  user_name:
+                    type: string
+                  id:
+                    type: integer
+                required:
+                - name
+                - user_name
+                - id
+        '404':
+          description: user not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: string
+                required:
+                - errors
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_name:
+                  type: string
+              required:
+              - name
+              - user_name
+    post:
+      summary: create user
+      parameters: []
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  user_name:
+                    type: string
+                  id:
+                    type: integer
+                required:
+                - name
+                - user_name
+                - id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                user_name:
+                  type: string
+              required:
+              - name
+              - user_name
+servers:
+- url: http://{defaultHost}
+  variables:
+    defaultHost:
+      default: "[::1]:3000"
