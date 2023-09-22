@@ -6,6 +6,7 @@ class CreateCars < ActiveRecord::Migration[7.0]
       t.string :location
       t.decimal :daily_rate
       t.string :car_type
+      t.string :image
 
       t.timestamps
     end
