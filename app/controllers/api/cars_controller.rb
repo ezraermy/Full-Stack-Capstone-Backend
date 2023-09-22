@@ -8,6 +8,10 @@ class CarsController < ApplicationController
     render json: @cars_name
   end
 
+  def list_cars_details
+    @item = Car.find_by(id: params[:id])
+    render json: @item
+  end
  
   private
 
