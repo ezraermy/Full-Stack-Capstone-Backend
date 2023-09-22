@@ -1,16 +1,26 @@
 class Api::ReservationsController < ApplicationController
   before_action :set_reservation, only: %i[show update destroy]
-  skip_before_action :verify_authenticity_token, only: %i[destroy create]
+  # skip_before_action :verify_authenticity_token, only: %i[destroy create]
 
   # HTTP GET request to retrieve a list of reservations.
   def index
-    @reservations = Reservation.includes(:car).all
-    render json: { reservations: @reservations }, status: :ok
+    @reservations = User.find_by(id: params[:user_id]).reservations.includes(:car)
+    reservations_json = @reservations.map do |reservation|
+      {
+        id: reservation.id,
+        user_id: reservation.user_id,
+        reservation_date: reservation.reservation_date,
+        due_date: reservation.due_date,
+        service_fee: reservation.service_fee,
+        car: reservation.car
+      }
+    end
+    render json: reservations_json
   end
 
   # HTTP POST request to create a new reservation
   def create
-    @user = User.find_by(username: params[:username])
+    @user = User.find_by(id: params[:user_id])
     @reservation = @user.reservations.build(reservation_params)
     if @reservation.save
       render json: @reservation, status: :created
@@ -21,22 +31,26 @@ class Api::ReservationsController < ApplicationController
 
   # HTTP GET request to retrieve details of a specific reservation
   def show
-    render json: Reservation.new(@reservation).as_json
-  end
+    render json:
 
-  # HTTP PUT request to update an existing reservation
-  def update
-    if @reservation.update(reservation_params)
-      render json: Reservation.new(@reservation).as_json, status: :ok
-    else
-      render json: { errors: @reservation.errors.full_messages }, status: :unprocessable_entity
-    end
+    {
+      id: @reservation.id,
+      user_id: @reservation.user_id,
+      reservation_date: @reservation.reservation_date,
+      due_date: @reservation.due_date,
+      service_fee: @reservation.service_fee,
+      car: @reservation.car
+    }
   end
 
   # DELETE /api/reservations/:id
   def destroy
-    @reservation.destroy
-    head :no_content
+    if @reservation.destroy
+      head :no_content
+      render json: { message: 'Reservation was deleted successfully' }
+    else
+      render json: { errors: 'Reservation could not be deleted' }
+    end
   end
 
   private
@@ -48,6 +62,6 @@ class Api::ReservationsController < ApplicationController
 
   # Only allow a list of specific parameters for create and update actions.
   def reservation_params
-    params.require(:reservation).permit(:username, :reservation_date, :due_date, :service_fee, :car_id)
+    params.require(:reservation).permit(:reservation_date, :due_date, :service_fee, :car_id)
   end
 end
