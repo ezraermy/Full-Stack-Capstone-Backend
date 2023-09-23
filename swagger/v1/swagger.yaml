@@ -4,6 +4,168 @@ info:
   title: API V1
   version: v1
 paths:
+  "/api/cars":
+    get:
+      summary: list cars
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+                    description:
+                      type: string
+                    image:
+                      type: string
+                    location:
+                      type: string
+                    daily_rate:
+                      type: number
+                      format: float
+                    car_type:
+                      type: string
+                  required:
+                  - id
+                  - name
+                  - description
+                  - image
+                  - location
+                  - daily_rate
+                  - car_type
+    post:
+      summary: create car
+      parameters: []
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  car_type:
+                    type: string
+                  image:
+                    type: string
+                  location:
+                    type: string
+                  daily_rate:
+                    type: number
+                    format: float
+                required:
+                - name
+                - car_type
+                - image
+                - location
+                - daily_rate
+        '404':
+          description: could not create car
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: string
+                required:
+                - errors
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                car_type:
+                  type: string
+                image:
+                  type: string
+                location:
+                  type: string
+                daily_rate:
+                  type: number
+                  format: float
+              required:
+              - name
+              - car_type
+              - image
+              - location
+              - daily_rate
+  "/api/cars/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: string
+    get:
+      summary: show car
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  car_type:
+                    type: string
+                  image:
+                    type: string
+                  location:
+                    type: string
+                  daily_rate:
+                    type: number
+                    format: float
+                required:
+                - name
+                - car_type
+                - image
+                - location
+                - daily_rate
+    delete:
+      summary: delete car
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                required:
+                - message
+        '404':
+          description: Could not delete reservation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: string
+                required:
+                - errors
   "/api/users/{user_id}/reservations":
     parameters:
     - name: user_id
