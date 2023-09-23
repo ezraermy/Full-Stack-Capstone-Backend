@@ -1,6 +1,5 @@
 class Api::ReservationsController < ApplicationController
   before_action :set_reservation, only: %i[show update destroy]
-  # skip_before_action :verify_authenticity_token, only: %i[destroy create]
 
   # HTTP GET request to retrieve a list of reservations.
   def index
