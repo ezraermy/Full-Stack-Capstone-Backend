@@ -77,9 +77,99 @@ paths:
                   - car
     post:
       summary: create reservation
+      parameters: []
       responses:
         '200':
           description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  user_id:
+                    type: integer
+                  reservation_date:
+                    type: string
+                    format: date-time
+                  due_date:
+                    type: string
+                    format: date-time
+                  service_fee:
+                    type: number
+                    format: float
+                  car:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      description:
+                        type: string
+                      location:
+                        type: string
+                      daily_rate:
+                        type: number
+                        format: float
+                      car_type:
+                        type: string
+                      created_at:
+                        type: string
+                        format: date-time
+                      updated_at:
+                        type: string
+                        format: date-time
+                    required:
+                    - id
+                    - name
+                    - description
+                    - location
+                    - daily_rate
+                    - car_type
+                    - created_at
+                    - updated_at
+                required:
+                - id
+                - user_id
+                - reservation_date
+                - due_date
+                - service_fee
+                - car
+        '404':
+          description: Could not create reservations
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: string
+                required:
+                - errors
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                reservation_date:
+                  type: string
+                  format: date-time
+                due_date:
+                  type: string
+                  format: date-time
+                service_fee:
+                  type: number
+                  format: float
+                car_id:
+                  type: integer
+              required:
+              - reservation_date
+              - due_date
+              - service_fee
+              - car_id
   "/api/users/{user_id}/reservations/{id}":
     parameters:
     - name: user_id
@@ -160,6 +250,26 @@ paths:
       responses:
         '200':
           description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                required:
+                - message
+        '404':
+          description: Could not delete reservation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: string
+                required:
+                - errors
   "/api/users":
     get:
       summary: user information
@@ -237,6 +347,17 @@ paths:
                 - name
                 - user_name
                 - id
+        '404':
+          description: could not create user
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: string
+                required:
+                - errors
       requestBody:
         content:
           application/json:
