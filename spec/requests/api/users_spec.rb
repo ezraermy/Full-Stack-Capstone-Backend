@@ -19,7 +19,9 @@ RSpec.describe 'api/users', type: :request do
         properties: {
           name: { type: :string },
           user_name: { type: :string },
-          id: { type: :integer }
+          id: { type: :integer },
+          created_at: { type: :string, format: :'date-time' },
+          updated_at: { type: :string, format: :'date-time' }
         },
         required: ['name', 'user_name', 'id']
         run_test! do |response|
@@ -58,7 +60,9 @@ RSpec.describe 'api/users', type: :request do
         properties: {
           name: { type: :string },
           user_name: { type: :string },
-          id: { type: :integer }
+          id: { type: :integer },
+          created_at: { type: :string, format: :'date-time' },
+          updated_at: { type: :string, format: :'date-time' }
         },
         required: ['name', 'user_name', 'id'] 
         run_test! do |response|

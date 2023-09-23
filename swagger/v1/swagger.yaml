@@ -4,6 +4,162 @@ info:
   title: API V1
   version: v1
 paths:
+  "/api/users/{user_id}/reservations":
+    parameters:
+    - name: user_id
+      in: path
+      description: user_id
+      required: true
+      schema:
+        type: string
+    get:
+      summary: list reservations
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    user_id:
+                      type: integer
+                    reservation_date:
+                      type: string
+                      format: date-time
+                    due_date:
+                      type: string
+                      format: date-time
+                    service_fee:
+                      type: number
+                      format: float
+                    car:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        name:
+                          type: string
+                        description:
+                          type: string
+                        location:
+                          type: string
+                        daily_rate:
+                          type: number
+                          format: float
+                        car_type:
+                          type: string
+                        created_at:
+                          type: string
+                          format: date-time
+                        updated_at:
+                          type: string
+                          format: date-time
+                      required:
+                      - id
+                      - name
+                      - description
+                      - location
+                      - daily_rate
+                      - car_type
+                      - created_at
+                      - updated_at
+                  required:
+                  - id
+                  - user_id
+                  - reservation_date
+                  - due_date
+                  - service_fee
+                  - car
+    post:
+      summary: create reservation
+      responses:
+        '200':
+          description: successful
+  "/api/users/{user_id}/reservations/{id}":
+    parameters:
+    - name: user_id
+      in: path
+      description: user_id
+      required: true
+      schema:
+        type: string
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: string
+    get:
+      summary: show reservation
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  user_id:
+                    type: integer
+                  reservation_date:
+                    type: string
+                    format: date-time
+                  due_date:
+                    type: string
+                    format: date-time
+                  service_fee:
+                    type: number
+                    format: float
+                  car:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      description:
+                        type: string
+                      location:
+                        type: string
+                      daily_rate:
+                        type: number
+                        format: float
+                      car_type:
+                        type: string
+                      created_at:
+                        type: string
+                        format: date-time
+                      updated_at:
+                        type: string
+                        format: date-time
+                    required:
+                    - id
+                    - name
+                    - description
+                    - location
+                    - daily_rate
+                    - car_type
+                    - created_at
+                    - updated_at
+                required:
+                - id
+                - user_id
+                - reservation_date
+                - due_date
+                - service_fee
+                - car
+    delete:
+      summary: delete reservation
+      responses:
+        '200':
+          description: successful
   "/api/users":
     get:
       summary: user information
@@ -22,6 +178,12 @@ paths:
                     type: string
                   id:
                     type: integer
+                  created_at:
+                    type: string
+                    format: date-time
+                  updated_at:
+                    type: string
+                    format: date-time
                 required:
                 - name
                 - user_name
@@ -65,6 +227,12 @@ paths:
                     type: string
                   id:
                     type: integer
+                  created_at:
+                    type: string
+                    format: date-time
+                  updated_at:
+                    type: string
+                    format: date-time
                 required:
                 - name
                 - user_name
