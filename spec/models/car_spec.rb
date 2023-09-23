@@ -42,4 +42,35 @@ RSpec.describe Car, type: :model do
     subject.image = nil
     expect(subject).to_not be_valid
   end
+
+  it 'Verifies daily rate is numeric' do
+    expect(subject.daily_rate).to be_a_kind_of(Numeric)
+  end
+
+  it 'Verifies daily rate is greater than 0' do
+    expect(subject.daily_rate).to be > 0
+  end
+  it 'Verifies image is a string' do
+    expect(subject.image).to be_a_kind_of(String)
+  end
+
+  it 'Verifies name is a string' do
+    expect(subject.name).to be_a_kind_of(String)
+  end
+
+  it 'Verifies car type is a string' do
+    expect(subject.car_type).to be_a_kind_of(String)
+  end
+
+  it 'Verifies description is a Numberic' do
+    expect(subject.description).to be_a_kind_of(String)
+  end
+
+  it 'Verifies location is a string' do
+    expect(subject.location).to be_a_kind_of(String)
+  end
+
+  it 'Verifies daily rate is a numeric' do
+    expect(subject.daily_rate).to be_a_kind_of(Numeric)
+  end
 end
