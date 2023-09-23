@@ -2,7 +2,6 @@ require 'swagger_helper'
 
 RSpec.describe 'api/reservations', type: :request do
   path '/api/users/{user_id}/reservations' do
-    # You'll want to customize the parameter types...
     parameter name: 'user_id', in: :path, type: :string, description: 'user_id'
 
     get('list reservations') do
