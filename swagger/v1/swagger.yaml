@@ -1,0 +1,540 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/api/cars":
+    get:
+      summary: list cars
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+                    description:
+                      type: string
+                    image:
+                      type: string
+                    location:
+                      type: string
+                    daily_rate:
+                      type: number
+                      format: float
+                    car_type:
+                      type: string
+                  required:
+                  - id
+                  - name
+                  - description
+                  - image
+                  - location
+                  - daily_rate
+                  - car_type
+    post:
+      summary: create car
+      parameters: []
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  car_type:
+                    type: string
+                  image:
+                    type: string
+                  location:
+                    type: string
+                  daily_rate:
+                    type: number
+                    format: float
+                required:
+                - name
+                - car_type
+                - image
+                - location
+                - daily_rate
+        '404':
+          description: could not create car
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: string
+                required:
+                - errors
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                car_type:
+                  type: string
+                image:
+                  type: string
+                location:
+                  type: string
+                daily_rate:
+                  type: number
+                  format: float
+              required:
+              - name
+              - car_type
+              - image
+              - location
+              - daily_rate
+  "/api/cars/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: string
+    get:
+      summary: show car
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  car_type:
+                    type: string
+                  image:
+                    type: string
+                  location:
+                    type: string
+                  daily_rate:
+                    type: number
+                    format: float
+                required:
+                - name
+                - car_type
+                - image
+                - location
+                - daily_rate
+    delete:
+      summary: delete car
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                required:
+                - message
+        '404':
+          description: Could not delete reservation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: string
+                required:
+                - errors
+  "/api/users/{user_id}/reservations":
+    parameters:
+    - name: user_id
+      in: path
+      description: user_id
+      required: true
+      schema:
+        type: string
+    get:
+      summary: list reservations
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    user_id:
+                      type: integer
+                    reservation_date:
+                      type: string
+                      format: date-time
+                    due_date:
+                      type: string
+                      format: date-time
+                    service_fee:
+                      type: number
+                      format: float
+                    car:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        name:
+                          type: string
+                        description:
+                          type: string
+                        location:
+                          type: string
+                        daily_rate:
+                          type: number
+                          format: float
+                        car_type:
+                          type: string
+                        created_at:
+                          type: string
+                          format: date-time
+                        updated_at:
+                          type: string
+                          format: date-time
+                      required:
+                      - id
+                      - name
+                      - description
+                      - location
+                      - daily_rate
+                      - car_type
+                      - created_at
+                      - updated_at
+                  required:
+                  - id
+                  - user_id
+                  - reservation_date
+                  - due_date
+                  - service_fee
+                  - car
+    post:
+      summary: create reservation
+      parameters: []
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  user_id:
+                    type: integer
+                  reservation_date:
+                    type: string
+                    format: date-time
+                  due_date:
+                    type: string
+                    format: date-time
+                  service_fee:
+                    type: number
+                    format: float
+                  car:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      description:
+                        type: string
+                      location:
+                        type: string
+                      daily_rate:
+                        type: number
+                        format: float
+                      car_type:
+                        type: string
+                      created_at:
+                        type: string
+                        format: date-time
+                      updated_at:
+                        type: string
+                        format: date-time
+                    required:
+                    - id
+                    - name
+                    - description
+                    - location
+                    - daily_rate
+                    - car_type
+                    - created_at
+                    - updated_at
+                required:
+                - id
+                - user_id
+                - reservation_date
+                - due_date
+                - service_fee
+                - car
+        '404':
+          description: Could not create reservations
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: string
+                required:
+                - errors
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                reservation_date:
+                  type: string
+                  format: date-time
+                due_date:
+                  type: string
+                  format: date-time
+                service_fee:
+                  type: number
+                  format: float
+                car_id:
+                  type: integer
+              required:
+              - reservation_date
+              - due_date
+              - service_fee
+              - car_id
+  "/api/users/{user_id}/reservations/{id}":
+    parameters:
+    - name: user_id
+      in: path
+      description: user_id
+      required: true
+      schema:
+        type: string
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: string
+    get:
+      summary: show reservation
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  user_id:
+                    type: integer
+                  reservation_date:
+                    type: string
+                    format: date-time
+                  due_date:
+                    type: string
+                    format: date-time
+                  service_fee:
+                    type: number
+                    format: float
+                  car:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      description:
+                        type: string
+                      location:
+                        type: string
+                      daily_rate:
+                        type: number
+                        format: float
+                      car_type:
+                        type: string
+                      created_at:
+                        type: string
+                        format: date-time
+                      updated_at:
+                        type: string
+                        format: date-time
+                    required:
+                    - id
+                    - name
+                    - description
+                    - location
+                    - daily_rate
+                    - car_type
+                    - created_at
+                    - updated_at
+                required:
+                - id
+                - user_id
+                - reservation_date
+                - due_date
+                - service_fee
+                - car
+    delete:
+      summary: delete reservation
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                required:
+                - message
+        '404':
+          description: Could not delete reservation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: string
+                required:
+                - errors
+  "/api/users":
+    get:
+      summary: user information
+      parameters: []
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  user_name:
+                    type: string
+                  id:
+                    type: integer
+                  created_at:
+                    type: string
+                    format: date-time
+                  updated_at:
+                    type: string
+                    format: date-time
+                required:
+                - name
+                - user_name
+                - id
+        '404':
+          description: user not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: string
+                required:
+                - errors
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_name:
+                  type: string
+              required:
+              - name
+              - user_name
+    post:
+      summary: create user
+      parameters: []
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  user_name:
+                    type: string
+                  id:
+                    type: integer
+                  created_at:
+                    type: string
+                    format: date-time
+                  updated_at:
+                    type: string
+                    format: date-time
+                required:
+                - name
+                - user_name
+                - id
+        '404':
+          description: could not create user
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: string
+                required:
+                - errors
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                user_name:
+                  type: string
+              required:
+              - name
+              - user_name
+servers:
+- url: http://{defaultHost}
+  variables:
+    defaultHost:
+      default: "[::1]:3000"
