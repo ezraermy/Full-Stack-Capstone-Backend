@@ -1,7 +1,7 @@
 databases:
   - name: fullstack
     databaseName: fullstack_2lz1
-    user: ezra
+    user: fullstack 
 
 services:
   - type: web
