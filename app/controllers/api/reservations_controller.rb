@@ -1,21 +1,24 @@
 class Api::ReservationsController < ApplicationController
   before_action :set_reservation, only: %i[show update destroy]
-  # skip_before_action :verify_authenticity_token, only: %i[destroy create]
 
   # HTTP GET request to retrieve a list of reservations.
   def index
     @reservations = User.find_by(id: params[:user_id]).reservations.includes(:car)
-    reservations_json = @reservations.map do |reservation|
-      {
-        id: reservation.id,
-        user_id: reservation.user_id,
-        reservation_date: reservation.reservation_date,
-        due_date: reservation.due_date,
-        service_fee: reservation.service_fee,
-        car: reservation.car
-      }
+    if @reservations
+      reservations_json = @reservations.map do |reservation|
+        {
+          id: reservation.id,
+          user_id: reservation.user_id,
+          reservation_date: reservation.reservation_date,
+          due_date: reservation.due_date,
+          service_fee: reservation.service_fee,
+          car: reservation.car
+        }
+      end
+      render json: reservations_json
+    else
+      render json: { errors: 'Reservations not found' }
     end
-    render json: reservations_json
   end
 
   # HTTP POST request to create a new reservation
@@ -46,7 +49,6 @@ class Api::ReservationsController < ApplicationController
   # DELETE /api/reservations/:id
   def destroy
     if @reservation.destroy
-      head :no_content
       render json: { message: 'Reservation was deleted successfully' }
     else
       render json: { errors: 'Reservation could not be deleted' }
