@@ -18,7 +18,7 @@ default: &default
   adapter: postgresql
   encoding: unicode
   username: postgres
-  password: ezraermi333
+  password: Managua2023
   host: localhost
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
@@ -60,7 +60,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: Full_Stack_Capstone_Backend_test
+  database: Full_Stack_Capstone_Backend_development
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -84,6 +84,5 @@ test:
 #
 production:
   <<: *default
-  database: Full_Stack_Capstone_Backend_production
-  username: Full_Stack_Capstone_Backend
+  url: <%= ENV['DATABASE_URL'] %>
   password: <%= ENV["FULL_STACK_CAPSTONE_BACKEND_DATABASE_PASSWORD"] %>
