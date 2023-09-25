@@ -84,6 +84,4 @@ test:
 #
 production:
   <<: *default
-  database: Full_Stack_Capstone_Backend_production
-  username: Full_Stack_Capstone_Backend
-  password: <%= ENV["FULL_STACK_CAPSTONE_BACKEND_DATABASE_PASSWORD"] %>
+  url: <%= ENV['DATABASE_URL'] %>
