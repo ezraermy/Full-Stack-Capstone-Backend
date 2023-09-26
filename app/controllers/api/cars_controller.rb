@@ -15,13 +15,16 @@ class Api::CarsController < ApplicationController
         car_type: car.car_type
       }
     end
-
     render json: @cars_json
   end
 
   def show
     @item = Car.find_by(id: params[:id])
-    render json: @item
+    if @item
+      render json: @item
+    else
+      render json: { errors: 'Car not found' }
+    end
   end
 
   def destroy
