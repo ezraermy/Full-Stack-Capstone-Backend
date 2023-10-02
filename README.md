@@ -45,7 +45,7 @@
 
 ## Link to the Frontend Repo
 
-- [Frontend](https://github.com/ezraermy/hello-react-front-end/tree/frontend)
+- [Frontend](https://github.com/PabloEGonz/full-stack-capstone-front-end)
 
 <!-- Getting Started -->
 
