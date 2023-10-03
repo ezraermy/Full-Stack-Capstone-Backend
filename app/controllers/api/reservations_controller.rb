@@ -5,7 +5,7 @@ class Api::ReservationsController < ApplicationController
   def index
     reservations = User.find_by(id: params[:user_id]).reservations.includes(:car)
     if reservations
-      reservations_json = @reservations.map do |reservation|
+      reservations_json = reservations.map do |reservation|
         {
           id: reservation.id,
           user_id: reservation.user_id,
