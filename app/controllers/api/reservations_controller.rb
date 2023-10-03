@@ -1,10 +1,10 @@
 class Api::ReservationsController < ApplicationController
-  before_action :set_reservation, only: %i[show update destroy]
+  before_action :set_reservation, only: %i[show destroy]
 
   # HTTP GET request to retrieve a list of reservations.
   def index
-    @reservations = User.find_by(id: params[:user_id]).reservations.includes(:car)
-    if @reservations
+    reservations = User.find_by(id: params[:user_id]).reservations.includes(:car)
+    if reservations
       reservations_json = @reservations.map do |reservation|
         {
           id: reservation.id,
@@ -23,12 +23,12 @@ class Api::ReservationsController < ApplicationController
 
   # HTTP POST request to create a new reservation
   def create
-    @user = User.find_by(id: params[:user_id])
-    @reservation = @user.reservations.build(reservation_params)
-    if @reservation.save
-      render json: @reservation, status: :created
+    user = User.find_by(id: params[:user_id])
+    reservation = user.reservations.build(reservation_params)
+    if reservation.save
+      render json: reservation, status: :created
     else
-      render json: { errors: @reservation.errors.full_messages }, status: :unprocessable_entity
+      render json: { errors: reservation.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
