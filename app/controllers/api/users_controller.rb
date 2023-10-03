@@ -4,7 +4,7 @@ class Api::UsersController < ApplicationController
     if @user
       render json: @user
     else
-      render json: { errors: "User doesn't exist" }
+      render json: { errors: "User doesn't exist" }, status: :not_found
     end
   end
 
@@ -13,7 +13,7 @@ class Api::UsersController < ApplicationController
     if new_user.save
       render json: new_user
     else
-      render json: { errors: 'Could not create user' }
+      render json: { errors: new_user.errors.full_messages }, status: :bad_request
     end
   end
 
