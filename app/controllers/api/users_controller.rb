@@ -13,7 +13,7 @@ class Api::UsersController < ApplicationController
     if new_user.save
       render json: new_user
     else
-      render json: { errors: new_user.errors.full_messages }, status: :bad_request
+      render json: { errors: new_user.errors.full_messages }, status: :unprocessable_entity
     end
   end
 

@@ -17,7 +17,7 @@ class Api::ReservationsController < ApplicationController
       end
       render json: reservations_json
     else
-      render json: { errors: 'Reservations not found' }
+      render json: { errors: 'Reservations not found' }, status: :not_found
     end
   end
 
@@ -34,16 +34,19 @@ class Api::ReservationsController < ApplicationController
 
   # HTTP GET request to retrieve details of a specific reservation
   def show
-    render json:
-
-    {
-      id: @reservation.id,
-      user_id: @reservation.user_id,
-      reservation_date: @reservation.reservation_date,
-      due_date: @reservation.due_date,
-      service_fee: @reservation.service_fee,
-      car: @reservation.car
-    }
+    if @reservation
+      render json:
+      {
+        id: @reservation.id,
+        user_id: @reservation.user_id,
+        reservation_date: @reservation.reservation_date,
+        due_date: @reservation.due_date,
+        service_fee: @reservation.service_fee,
+        car: @reservation.car
+      }
+    else
+      render json: { errors: "Reservation doesn't exist" }, status: :not_found
+    end
   end
 
   # DELETE /api/reservations/:id
@@ -51,7 +54,7 @@ class Api::ReservationsController < ApplicationController
     if @reservation.destroy
       render json: { message: 'Reservation was deleted successfully' }
     else
-      render json: { errors: 'Reservation could not be deleted' }
+      render json: { errors: 'Reservation could not be deleted' }, status: :bad_request
     end
   end
 
