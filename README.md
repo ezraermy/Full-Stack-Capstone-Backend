@@ -75,7 +75,19 @@ Install the dependencies using npm:
 bundler install
 ```
 
+Do this to for database migrations :
 
+```bash
+rails db:drop
+```
+
+```bash
+rails db:create
+```
+
+```bash
+rails db:migrate
+```
 
 ### Run tests
 
@@ -83,6 +95,12 @@ To run linters tests, run the following command:
 
 ```bash
   rubocop
+```
+
+To run model tests, run the following command:
+
+```bash
+  rspec spec/models
 ```
 
 ### Run the app
@@ -105,21 +123,17 @@ Then run the following command:
 - [<img src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Logo_of_Twitter.svg" width='20'/> Twitter](https://twitter.com/yosaddis)
 - [<img src="https://i.stack.imgur.com/gVE0j.png" width='20'/> LinkedIn](https://www.linkedin.com/in/yoseph-addisu/)
 
-
 👤 **Ezequiel González**
 
 - [<img src="https://cdn-icons-png.flaticon.com/512/281/281769.png" width='20'/> Email](mailto:ezekielgonzalezr@gmail.com)
 - [<img src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Logo_of_Twitter.svg" width='20'/> Twitter](https://twitter.com/ezekielgonzalezr@gmail.com)
 - [<img src="https://i.stack.imgur.com/gVE0j.png" width='20'/> LinkedIn](https://www.linkedin.com/in/ezekielgonzalezr@gmail.com/)
 
-
 👤 **Ezra Yehuwalashet**
 
 - [<img src="https://cdn-icons-png.flaticon.com/512/281/281769.png" width='20'/> Email](mailto:ezraermy@gmail.com)
 - [<img src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Logo_of_Twitter.svg" width='20'/> Twitter](https://twitter.com/ezraermy)
 - [<img src="https://i.stack.imgur.com/gVE0j.png" width='20'/> LinkedIn](https://www.linkedin.com/in/ezra-yehuwalashet/)
-
-
 
 <p align="right"><a href="#readme-top">👆</a></p>
 
@@ -153,7 +167,7 @@ If you like this project leave a start for it.
 
 ## 🙏 Acknowledgments <a name="acknowledgements"></a>
 
-- We would like to extend my sincere thanks to [Book a vespa test-ride](https://www.behance.net/gallery/26425031/Vespa-Responsive-Redesign/modules/173005583) for generously sharing the remarkable design work with my project. 
+- We would like to extend my sincere thanks to [Book a vespa test-ride](https://www.behance.net/gallery/26425031/Vespa-Responsive-Redesign/modules/173005583) for generously sharing the remarkable design work with my project.
 - We would like to thank [Microverse](https://www.microverse.org/) for this learning opportunity.
 
 <p align="right"><a href="#readme-top">👆</a></p>
