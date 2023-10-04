@@ -69,10 +69,13 @@ RSpec.describe 'api/users', type: :request do
         end
       end
 
-      response(404, 'could not create user') do
+      response(422, 'could not create user') do
         schema type: :object,
                properties: {
-                 errors: { type: :string }
+                 errors:{ 
+                  type: :array,
+                  items: { type: :string }
+                },
                },
                required: ['errors']
         run_test! do |response|
