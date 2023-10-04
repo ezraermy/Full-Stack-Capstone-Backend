@@ -1,10 +1,10 @@
 class Api::CarsController < ApplicationController
-  # skip_before_action :verify_authenticity_token, only: %i[destroy_car create]
+  before_action :set_car, only: %i[show destroy]
 
   def index
-    @cars = Car.all
+    cars = Car.all
 
-    @cars_json = @cars.map do |car|
+    cars_json = cars.map do |car|
       {
         id: car.id,
         name: car.name,
@@ -15,39 +15,41 @@ class Api::CarsController < ApplicationController
         car_type: car.car_type
       }
     end
-    render json: @cars_json
+    render json: cars_json
   end
 
   def show
-    @item = Car.find_by(id: params[:id])
     if @item
       render json: @item
     else
-      render json: { errors: 'Car not found' }
+      render json: { errors: 'Car not found' }, status: :not_found
     end
   end
 
   def destroy
-    @item = Car.find_by(id: params[:id])
     if @item.destroy
       # head :no_content
       render json: { message: 'Car was deleted successfully' }
     else
-      render json: { errors: 'Car could not be deleted' }
+      render json: { errors: 'Car could not be deleted' }, status: :bad_request
     end
   end
 
   def create
-    @car = Car.new(car_params)
+    car = Car.new(car_params)
 
-    if @car.save
-      render json: @car
+    if car.save
+      render json: car
     else
-      render json: @car.errors.full_messages
+      render json: car.errors.full_messages, status: :unprocessable_entity
     end
   end
 
   private
+
+  def set_car
+    @item = Car.find_by(id: params[:id])
+  end
 
   def car_params
     params.require(:car).permit(:name, :car_type, :description, :image, :location, :daily_rate)

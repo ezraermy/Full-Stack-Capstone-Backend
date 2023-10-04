@@ -65,10 +65,13 @@ RSpec.describe 'api/cars', type: :request do
         end
         run_test!
       end
-      response(404, 'could not create car') do
+      response(422, 'could not create car') do
         schema type: :object,
                properties: {
-                 errors: { type: :string }
+                 errors:{ 
+                  type: :array,
+                  items: { type: :string }
+                },
                },
                required: ['errors']
         run_test! do |response|
@@ -105,6 +108,18 @@ RSpec.describe 'api/cars', type: :request do
           }
         end
         run_test!
+      end
+
+      response(404, 'car not found') do
+        schema type: :object,
+               properties: {
+                 errors: { type: :string }
+               },
+               required: ['errors']
+        run_test! do |response|
+          data = JSON.parse(response.body)
+          expect(data).to be_an(Object)
+        end
       end
     end
 

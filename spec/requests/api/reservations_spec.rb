@@ -40,6 +40,17 @@ RSpec.describe 'api/reservations', type: :request do
           expect(data).to be_an(Array)
         end
       end
+      response(404, 'reservations not found') do
+        schema type: :object,
+               properties: {
+                 errors: { type: :string }
+               },
+               required: ['errors']
+        run_test! do |response|
+          data = JSON.parse(response.body)
+          expect(data).to be_an(Object)
+        end
+      end
     end
 
     post('create reservation') do
@@ -90,10 +101,13 @@ RSpec.describe 'api/reservations', type: :request do
         end
       end
 
-      response(404, 'Could not create reservations') do
+      response(422, 'Could not create reservations') do
         schema type: :object,
                properties: {
-                 errors: { type: :string }
+                 errors:{ 
+                  type: :array,
+                  items: { type: :string }
+                },
                },
                required: ['errors']
         run_test! do |response|
@@ -146,6 +160,17 @@ RSpec.describe 'api/reservations', type: :request do
             }
           end
           run_test!
+        end
+        response(404, 'Reservation not found') do
+          schema type: :object,
+                 properties: {
+                   errors: { type: :string }
+                 },
+                 required: ['errors']
+          run_test! do |response|
+            data = JSON.parse(response.body)
+            expect(data).to be_an(Object)
+          end
         end
       end
 
