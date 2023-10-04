@@ -47,6 +47,9 @@
 
 - [Frontend](https://github.com/PabloEGonz/full-stack-capstone-front-end)
 
+## ERD
+![Model Diagram](./app/assets/images/diagram.png)
+
 <!-- Getting Started -->
 
 ## 💻 Getting Started <a name="getting-started"></a>
