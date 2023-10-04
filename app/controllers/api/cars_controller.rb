@@ -1,5 +1,5 @@
 class Api::CarsController < ApplicationController
-  before_action :set_reservation, only: %i[show destroy]
+  before_action :set_car, only: %i[show destroy]
 
   def index
     cars = Car.all
